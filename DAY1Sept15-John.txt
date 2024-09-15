@@ -144,16 +144,16 @@ Int Fa 0/7
 config t
 ip routing
 ip dhcp pool CAMERA6
-host 10._.50.6 255.255.255.0
-client-identifier ____.____.____
+host 10.71.50.6 255.255.255.0
+client-identifier 001a.0709.c652
 ip dhcp pool CAMERA8
-host 10._.50.8 255.255.255.0
-client-identifier ____.____.____
+host 10.71.50.8 255.255.255.0
+client-identifier 001a.0704.7f67
 
 !!cisco unified call manager Express command
 !@@@CUCM-M
 config t
-   hostname CUCM-_
+   hostname CUCM-71
    enable secret pass
    service password-encryption
    no logging console
@@ -168,22 +168,22 @@ config t
       exec-timeout 0 0
    Int Fa 0/0
      no shutdown
-	 ip add 10._.100.8 255.255.255.0 
+	 ip add 10.71.100.8 255.255.255.0 
 	 end
    
 !!!CUCM ANALOG PHONES CONFIG
 configure terminal
 dial-peer voice 1 pots
-   destination-pattern _00
+   destination-pattern 7100
    port 0/0/0
 dial-peer voice 2 pots
-   destination-pattern _01
+   destination-pattern 7101
    port 0/0/1
 dial-peer voice 3 pots
-   destination-pattern _02
+   destination-pattern 7102
    port 0/0/2
 dial-peer voice 4 pots
-   destination-pattern _03
+   destination-pattern 7103
    port 0/0/3
 end
 
@@ -195,35 +195,35 @@ telephony-service
    no auto-reg-ephone
    max-ephones 5
    max-dn 20
-   ip source-address 10.12.100.8 port 2000
+   ip source-address 10.71.100.8 port 2000
    create cnf-files
 ephone-dn 1
-  number 1211
+  number 7111
 ephone-dn 2
-  number 1222
+  number 7122
 ephone-dn 3
-  number 1233
+  number 7133
 ephone-dn 4
-  number 1244
+  number 7144
 ephone-dn 5
-  number 1255
+  number 7155
 ephone-dn 6
-  number 1266
+  number 7166
 ephone-dn 7
-  number 1277
+  number 7177
 ephone-dn 8
-  number 1288
+  number 7188
  ephone-dn 9
-   number 1290
+   number 7190
 ephone-dn 10
- number 1291
+ number 7191
 Ephone 1
-  Mac-address ____.____.____
+  Mac-address 2c54.2d0e.f827
   type 8945
   button 1:8 2:7 3:6 4:5
   restart
 Ephone 2
-  Mac-address ____.____.____
+  Mac-address ccd8.c1fa.dd39
   type 8945
   button 1:4 2:3 3:2 4:1
   restart  
@@ -256,10 +256,10 @@ configure terminal
  destination-pattern 11..
  session target ipv4:10.11.100.8
  codec g711ULAW
- ! dial-peer voice 12 Voip
- ! destination-pattern 12..
- ! session target ipv4:10.12.100.8
- ! codec g711ULAW
+  dial-peer voice 12 Voip
+  destination-pattern 12..
+  session target ipv4:10.12.100.8
+  codec g711ULAW
 dial-peer voice 21 Voip
  destination-pattern 21..
  session target ipv4:10.21.100.8
@@ -300,10 +300,10 @@ dial-peer voice 62 Voip
  destination-pattern 62..
  session target ipv4:10.62.100.8
  codec g711ULAW
-dial-peer voice 71 Voip
- destination-pattern 71..
- session target ipv4:10.71.100.8
- codec g711ULAW
+! dial-peer voice 71 Voip
+ ! destination-pattern 71..
+ ! session target ipv4:10.71.100.8
+ ! codec g711ULAW
 dial-peer voice 72 Voip
  destination-pattern 72..
  session target ipv4:10.72.100.8
@@ -320,7 +320,7 @@ dial-peer voice 82 Voip
 @@@@@@
 !@@@EDGE ROUTE CONFIG
 config t
-   hostname EDGE-_
+   hostname EDGE-71
    enable secret pass
    service password-encryption
    no logging console
@@ -335,15 +335,15 @@ config t
       exec-timeout 0 0
    Int Gi 0/0/0
      description INSIDE
-     ip add 10.m.m.1 255.255.255.0
+     ip add 10.71.71.1 255.255.255.0
 	 no shutdown
    Int Gi 0/0/1
      description OUTSIDE
-	 ip add 200.0.0.m 255.255.255.0
+	 ip add 200.0.0.71 255.255.255.0
 	 no shutdown
    Int Loopback 0
      description VIRTUALIP
-	 ip add m.0.0.1 255.255.255.255
+	 ip add 71.0.0.1 255.255.255.255
  end
 
  !!!STATIC ROUTING FOR MININUM WAGERS: 645php/day
