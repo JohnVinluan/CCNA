@@ -222,6 +222,44 @@ Interface Gi 3
  ip access-group ProtectWEB1 in
  do sh ip access-list ProtectWEB1
 
+EXAMPLE: 5
+config t
+no ip access-list extended LASTFWP
+ip access-list extended LASTFWP
+Permit icmp any host www.web8.com log
+Permit tcp any host www.web8.com eq 19 log
+Permit tcp any host www.web8.com eq 79 log
+Permit tcp any host www.web8.com eq 80 log
+Permit tcp any  host www.web9.com eq 22 log
+Permit tcp any  host www.web9.com eq 23 log
+Permit tcp any  host www.web9.com eq 13 log
+Permit tcp any  host www.web9.com eq 53 log
+Permit tcp any  host www.web9.com eq 443 log
+Interface Gi 3
+ ip access-group LASTFWP in
+ do sh ip access-list LASTFWP
+
+config t
+no ip access-list extended LASTFWP2
+ip access-list extended LASTFWP2
+Permit tcp any host www.web8.com eq 80 log
+Permit tcp any host www.web8.com eq 443 log
+Permit tcp any  host www.web9.com eq 23 log
+Permit tcp any  host www.web9.com eq 22 log
+Permit tcp any  host www.web9.com eq 53 log
+Interface Gi 3
+ ip access-group LASTFWP2 in
+ do sh ip access-list LASTFWP2
+
+config t
+no ip access-list extended LASTFWP3
+ip access-list extended LASTFWP3
+Permit tcp any host www.web8.com eq 443 log
+Permit tcp any  host www.web9.com eq 22 log
+Interface Gi 3
+ ip access-group LASTFWP3 in
+ do sh ip access-list LASTFWP3
+
 EX.2 CREATE A FIREWALL POLICY NAMED PROWEBAPP2 TO OPEN
 WWW.WEB8.COM HAS HTTPS AS OPEN
 WWW.WEB9.COM HAS HTTPS OPEN
@@ -267,6 +305,18 @@ ntp server 216.239.35.8
 end
 show ntp associations
 
+Give IP address to Linux bldgone and bldgtwo
+BLDGOne:
+sudo su
+ifconfig eth0 192.168.103.11 netmask 255.255.255.0 up
+route add default gw 192.168.103.5
+
+BLDGTwo:
+sudo su
+ifconfig eth0 192.168.103.12 netmask 255.255.255.0 up
+route add default gw 192.168.103.5
+
+
 TASK9: NAT: NETWORK ADDRESS TRANSLATION SERVICE:
 nat, proxy, hotspot, tethering, = PENGE INTERNET
 Give Internet to your Entire building USING CISCO:
@@ -285,8 +335,8 @@ no access-list 7
 access-list 7 permit 192.168.102.0 0.0.0.255
 access-list 7 permit 192.168.103.0 0.0.0.255
 ip nat inside source list 7 interface Gi 1 overload
-ip nat inside source static 192.168.102.69 192.168.108.69
-ip nat inside source static 192.168.103.88 192.168.108.88
+ip nat inside source static 192.168.103.11 192.168.108.69
+ip nat inside source static 192.168.103.12 192.168.108.88
 end
 
 TASK10: DO YOU HAVE TO REPLACED BY A.I AT WORK? REPLACED BY
