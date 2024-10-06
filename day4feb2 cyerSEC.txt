@@ -206,25 +206,27 @@ Top 5 UTM: 1.FortinetFortigate:
            3.4 Cisco
 
 CYBERSECURITY TASK7: PROTECTING YOUR CORPORATE WEB APPS.
-EX.1 CREATE A FIREWALL POLICY NAMED PROWEBAPP1 TO OPEN
-WWW.WEB8.COM HAS HTTP AND HTTPS AS OPEN
-WWW.WEB9.COM HAS SSH AND DNS OPEN
+EX.1 CREATE A FIREWALL POLICY NAMED ProtectWEB1 TO OPEN
+WWW.WEB8.COM HAS DNS, HTTPS AS OPEN
+WWW.WEB9.COM HAS SSH AND HTTP OPEN
 formula:       PROTOCOL    HACKER    VICTIM     PORT:
 config t
-no ip access-list extended PROWEBAPP1
-ip access-list extended PROWEBAPP1
-Permit tcp any host www.web8.com eq 80 log
+no ip access-list extended ProtectWEB1
+ip access-list extended ProtectWEB1
+Permit tcp any host www.web8.com eq 53 log
 Permit tcp any host www.web8.com eq 443 log
 Permit tcp any host www.web9.com eq 22 log
-Permit tcp any  host www.web9.com eq 53 log
+Permit tcp any  host www.web9.com eq 80 log
+Permit icmp any host www.web9.com log
 Interface Gi 3
- ip access-group PROWEBAPP1 in
- do sh ip access-list PROWEBAPP1
+ ip access-group ProtectWEB1 in
+ do sh ip access-list ProtectWEB1
 
 EX.2 CREATE A FIREWALL POLICY NAMED PROWEBAPP2 TO OPEN
 WWW.WEB8.COM HAS HTTPS AS OPEN
 WWW.WEB9.COM HAS HTTPS OPEN
 formula:       PROTOCOL    HACKER    VICTIM     PORT:
+      tcp, udp, icmp, IP   any       web8, web9  
 config t
 no ip access-list extended PROWEBAPP2
 ip access-list extended PROWEBAPP2
@@ -234,9 +236,9 @@ Interface Gi 3
  ip access-group PROWEBAPP2 in
  do sh ip access-list PROWEBAPP1
 
-EX.4 CREATE A FIREWALL POLICY NAMED PROWEBAPP4 TO OPEN
-WWW.WEB8.COM HAS ping, dns, https OPEN
-WWW.WEB9.COM HAS everything OPEN!
+EX.4 CREATE A FIREWALL POLICY NAMED ProtectWEB TO OPEN
+WWW.WEB8.COM HAS dns, https OPEN
+WWW.WEB9.COM HAS ssh, http OPEN!
 config t
 no ip access-list extended PROWEBAPP4
 ip access-list extended PROWEBAPP4
