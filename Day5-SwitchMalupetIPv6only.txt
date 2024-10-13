@@ -282,18 +282,18 @@ WonderWoman: 802.1w: rapidSTP
 SuperMan: 802.1s: MiSTP
 "Protect Many Switches at the same time!"
 
-TASK8: ACCESS PORTS VS TRUNK PORTS:
+TASK8: ACCESS PORTS VS TRUNK PORTS: lab mo sa exam
 Trunk Ports: switch to switch:
 TAAS/BABA:
-config t
 Int Range fa0/10-12
  shutdown
- no shutdown
  switchport trunk Encap Dot1Q
  switchport mode trunk
  switchport trunk allowed vlan 1-100 
+ no shutdown
+ config t
  do sh int trunk
-Dot1q = Qupid,mave switches love each other:
+Dot1q = Qupid, make switches love each other:
       IEEE standard where SW will from Layer 2 trunks
 
 TASK9: SPANNING-TREE PROTOCOL: 802.1D: protect switches Slowly.
@@ -486,7 +486,7 @@ config t
 hostname PLDTITO
 Track 1 Int gi 0/1 line-protocol
 Int vlan 1
-standby 1 ip 10.__.1.6
+standby 1 ip 10.71.1.6
 standby 1 preempt
 standby 1 Priority 150
 standby 1 Track 1 decrement 60
@@ -504,7 +504,7 @@ COREBABA/GLOBE:
 config t
 hostname GLOBEITO
 Int vlan 1
-standby 1 ip 10.__.1.6
+standby 1 ip 10.71.1.6
 standby 1 preempt
 standby 1 Priority 100
 
@@ -657,7 +657,7 @@ GLBP  20 Priority 100
 do sh standby
 
 HOMELAB: REAL WORLD ETHERCHANNEL:
-@d1:
+@d1: and @d2:
 config t
 Int Range E0/1,E0/2
  channel-group 1 mode active
